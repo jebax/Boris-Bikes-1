@@ -10,8 +10,8 @@ attr_reader :docked_bike
 
   def release_bike
     raise "Docking station is empty" if @docked_bike.nil?
-    
-    Bike.new
+
+    @docked_bike
   end
 
   def dock(bike)
