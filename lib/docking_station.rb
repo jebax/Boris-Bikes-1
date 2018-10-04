@@ -1,4 +1,5 @@
 require_relative 'bike'
+require_relative 'van'
 
 class DockingStation
 
@@ -30,7 +31,7 @@ class DockingStation
       end
     end
   end
-  
+
   private
 
   def full?

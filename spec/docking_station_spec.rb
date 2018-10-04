@@ -1,4 +1,5 @@
 require "docking_station"
+
 describe DockingStation do
   let(:bike) { double(:bike) }
   let(:bike_2) { double(:bike_2) }
