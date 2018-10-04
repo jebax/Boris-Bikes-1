@@ -1,5 +1,4 @@
 require 'garage'
-require 'bike'
 require 'pry'
 
 
