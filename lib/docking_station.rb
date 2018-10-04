@@ -12,8 +12,9 @@ class DockingStation
 
   def release_bike
     raise "Docking station is empty" if empty?
-
-    @docked_bikes.shift
+    chosen_bike = @docked_bikes.first
+    raise "Bike is broken!" unless chosen_bike.working?
+    chosen_bike
   end
 
   def dock(bike)
