@@ -27,19 +27,28 @@ describe DockingStation do
     end
   end
 
-  it "should dock a bike" do
-    expect(subject).to respond_to(:dock).with(1).argument
-  end
+  describe "#dock" do
+    it "should dock a bike" do
+      expect(subject).to respond_to(:dock).with(1).argument
+    end
 
-  it "should show a docked bike" do
-    bike = Bike.new
-    subject.dock(bike)
-    expect(subject.docked_bikes).to eq [bike]
-  end
+    it "should show a docked bike" do
+      bike = Bike.new
+      subject.dock(bike)
+      expect(subject.docked_bikes).to eq [bike]
+    end
 
-  it "dock(bike) should raise an error" do
-    subject.capacity.times { subject.dock(Bike.new) }
-    expect {subject.dock(Bike.new)}.to raise_error("Docking station is full")
+    it "dock(bike) should raise an error if full" do
+      subject.capacity.times { subject.dock(Bike.new) }
+      expect {subject.dock(Bike.new)}.to raise_error("Docking station is full")
+    end
+
+    it 'should dock a broken bike' do
+      bike = Bike.new
+      bike.report_as_broken
+      subject.dock(bike)
+      expect(subject.docked_bikes).to eq [bike]
+    end
   end
 
   it "should have a default capacity of DEFAULT_CAPACITY" do
