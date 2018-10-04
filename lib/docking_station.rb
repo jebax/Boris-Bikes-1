@@ -22,8 +22,15 @@ class DockingStation
     @docked_bikes << bike
   end
 
-
-
+  def release_broken_bikes(van)
+    @docked_bikes.each do |bike|
+      if !bike.working?
+        van.storage << bike
+        @docked_bikes.delete(bike)
+      end
+    end
+  end
+  
   private
 
   def full?

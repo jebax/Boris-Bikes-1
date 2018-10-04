@@ -1,7 +1,8 @@
 require "docking_station"
-
 describe DockingStation do
   let(:bike) { double(:bike) }
+  let(:bike_2) { double(:bike_2) }
+  let(:van) { double(:van) }
 
   describe "#release_bike" do
     it { is_expected.to respond_to :release_bike}
@@ -58,6 +59,27 @@ describe DockingStation do
   it "capacity can be set" do
     station = DockingStation.new(30)
     expect(station.capacity).to eq 30
+  end
+
+  describe "#release_broken_bikes" do
+    it "should release broken bikes to van" do
+      allow(bike).to receive(:working?).and_return false
+      allow(van).to receive(:storage).and_return []
+      subject.dock(bike)
+      subject.release_broken_bikes(van)
+      expect(van.storage).to eq [bike]
+    end
+
+    it "should not release working bike to van" do
+      allow(bike).to receive(:working?).and_return false
+      allow(bike_2).to receive(:working?).and_return true
+      allow(van).to receive(:storage).and_return []
+      subject.dock(bike)
+      subject.dock(bike_2)
+      subject.release_broken_bikes(van)
+      expect(van.storage).to eq [bike]
+    end
+
   end
 
 end
