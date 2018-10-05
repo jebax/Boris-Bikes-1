@@ -1,9 +1,10 @@
 require 'garage'
 require 'pry'
+require 'bike'
 
 
 describe Garage do
-  let(:bike) { double(:bike) }
+  let(:bike) { double(:bike, working: false) }
   let(:van) { double(:van) }
 
   it 'should be able to store bikes' do
@@ -21,11 +22,11 @@ describe Garage do
 
   describe "#fix_bikes" do
     it 'should be able to fix broken bikes' do
-      broken_bike = Bike.new
-      broken_bike.report_as_broken
-      subject.storage << broken_bike
+      bike_2 = Bike.new
+      bike_2.report_as_broken
+      subject.storage << bike_2
       subject.fix_bikes
-      expect(broken_bike.working?).to eq true
+      expect(bike_2.working).to eq true
     end
   end
 end
